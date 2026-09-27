@@ -10,7 +10,6 @@ export function getApiBaseUrl() {
   if (codespaceName) {
     return `https://${codespaceName}-${DEFAULT_PORT}.app.github.dev`;
   }
-
   return `http://localhost:${DEFAULT_PORT}`;
 }
 
