@@ -1,7 +1,13 @@
 import { useApiResource } from '../hooks/useApiResource';
 
+const codespaceName = import.meta.env.VITE_CODESPACE_NAME;
+// Falls back to localhost when VITE_CODESPACE_NAME is unset to avoid `https://undefined-8000...`
+const leaderboardEndpoint = codespaceName
+  ? `https://${codespaceName}-8000.app.github.dev/api/leaderboard/`
+  : 'http://localhost:8000/api/leaderboard/';
+
 function Leaderboard() {
-  const { records: entries, isLoading, error } = useApiResource('/api/leaderboard/');
+  const { records: entries, isLoading, error } = useApiResource(leaderboardEndpoint);
 
   if (isLoading) {
     return <p>Loading leaderboard…</p>;

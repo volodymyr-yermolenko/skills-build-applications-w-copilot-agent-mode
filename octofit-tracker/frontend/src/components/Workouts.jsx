@@ -1,7 +1,13 @@
 import { useApiResource } from '../hooks/useApiResource';
 
+const codespaceName = import.meta.env.VITE_CODESPACE_NAME;
+// Falls back to localhost when VITE_CODESPACE_NAME is unset to avoid `https://undefined-8000...`
+const workoutsEndpoint = codespaceName
+  ? `https://${codespaceName}-8000.app.github.dev/api/workouts/`
+  : 'http://localhost:8000/api/workouts/';
+
 function Workouts() {
-  const { records: workouts, isLoading, error } = useApiResource('/api/workouts/');
+  const { records: workouts, isLoading, error } = useApiResource(workoutsEndpoint);
 
   if (isLoading) {
     return <p>Loading workouts…</p>;

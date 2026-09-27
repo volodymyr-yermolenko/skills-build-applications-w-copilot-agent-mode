@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
 
-import { getEndpointUrl } from '../config/api';
-
 // Backend responses vary by resource: { items: [...] }, { entries: [...] }, or a raw array
 function extractRecords(payload) {
   if (Array.isArray(payload)) {
@@ -10,7 +8,7 @@ function extractRecords(payload) {
   return payload.items ?? payload.entries ?? [];
 }
 
-export function useApiResource(endpointPath) {
+export function useApiResource(endpointUrl) {
   const [records, setRecords] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -23,7 +21,7 @@ export function useApiResource(endpointPath) {
       setError(null);
 
       try {
-        const response = await fetch(getEndpointUrl(endpointPath), { signal: controller.signal });
+        const response = await fetch(endpointUrl, { signal: controller.signal });
         if (!response.ok) {
           throw new Error(`Request failed with status ${response.status}`);
         }
@@ -41,7 +39,8 @@ export function useApiResource(endpointPath) {
     fetchResource();
 
     return () => controller.abort();
-  }, [endpointPath]);
+  }, [endpointUrl]);
+
 
   return { records, isLoading, error };
 }

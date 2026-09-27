@@ -1,7 +1,13 @@
 import { useApiResource } from '../hooks/useApiResource';
 
+const codespaceName = import.meta.env.VITE_CODESPACE_NAME;
+// Falls back to localhost when VITE_CODESPACE_NAME is unset to avoid `https://undefined-8000...`
+const usersEndpoint = codespaceName
+  ? `https://${codespaceName}-8000.app.github.dev/api/users/`
+  : 'http://localhost:8000/api/users/';
+
 function Users() {
-  const { records: users, isLoading, error } = useApiResource('/api/users/');
+  const { records: users, isLoading, error } = useApiResource(usersEndpoint);
 
   if (isLoading) {
     return <p>Loading users…</p>;
