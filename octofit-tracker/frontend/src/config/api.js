@@ -10,6 +10,6 @@ export function getApiBaseUrl() {
   return `http://localhost:${DEFAULT_PORT}`;
 }
 
-export function getEndpointUrl(resource) {
-  return `${getApiBaseUrl()}/api/${resource}/`;
+export function getEndpointUrl(path) {
+  return `${getApiBaseUrl()}${path}`;
 }

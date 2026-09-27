@@ -1,7 +1,7 @@
 import { useApiResource } from '../hooks/useApiResource';
 
 function Workouts() {
-  const { records: workouts, isLoading, error } = useApiResource('workouts');
+  const { records: workouts, isLoading, error } = useApiResource('/api/workouts/');
 
   if (isLoading) {
     return <p>Loading workouts…</p>;

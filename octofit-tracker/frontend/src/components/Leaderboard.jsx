@@ -1,7 +1,7 @@
 import { useApiResource } from '../hooks/useApiResource';
 
 function Leaderboard() {
-  const { records: entries, isLoading, error } = useApiResource('leaderboard');
+  const { records: entries, isLoading, error } = useApiResource('/api/leaderboard/');
 
   if (isLoading) {
     return <p>Loading leaderboard…</p>;

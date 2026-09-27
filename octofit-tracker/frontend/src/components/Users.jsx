@@ -1,7 +1,7 @@
 import { useApiResource } from '../hooks/useApiResource';
 
 function Users() {
-  const { records: users, isLoading, error } = useApiResource('users');
+  const { records: users, isLoading, error } = useApiResource('/api/users/');
 
   if (isLoading) {
     return <p>Loading users…</p>;

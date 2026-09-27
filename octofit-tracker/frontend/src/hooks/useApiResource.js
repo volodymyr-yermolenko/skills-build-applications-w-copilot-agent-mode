@@ -10,7 +10,7 @@ function extractRecords(payload) {
   return payload.items ?? payload.entries ?? [];
 }
 
-export function useApiResource(resource) {
+export function useApiResource(endpointPath) {
   const [records, setRecords] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -23,7 +23,7 @@ export function useApiResource(resource) {
       setError(null);
 
       try {
-        const response = await fetch(getEndpointUrl(resource), { signal: controller.signal });
+        const response = await fetch(getEndpointUrl(endpointPath), { signal: controller.signal });
         if (!response.ok) {
           throw new Error(`Request failed with status ${response.status}`);
         }
@@ -41,7 +41,7 @@ export function useApiResource(resource) {
     fetchResource();
 
     return () => controller.abort();
-  }, [resource]);
+  }, [endpointPath]);
 
   return { records, isLoading, error };
 }

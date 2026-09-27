@@ -1,7 +1,7 @@
 import { useApiResource } from '../hooks/useApiResource';
 
 function Teams() {
-  const { records: teams, isLoading, error } = useApiResource('teams');
+  const { records: teams, isLoading, error } = useApiResource('/api/teams/');
 
   if (isLoading) {
     return <p>Loading teams…</p>;
