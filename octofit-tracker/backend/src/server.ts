@@ -1,3 +1,4 @@
+import cors from 'cors';
 import express from 'express';
 
 import { connectToDatabase } from './config/database.js';
@@ -11,6 +12,8 @@ const apiBaseUrl = codespaceName
 
 const app = express();
 
+// Allows the presentation tier (a different Codespaces port/origin) to call this API
+app.use(cors());
 app.use(express.json());
 
 app.get('/', (_request, response) => {
